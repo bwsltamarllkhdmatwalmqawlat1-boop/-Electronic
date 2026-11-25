@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>التوقيع والختم الإلكتروني</title>
+<meta name="theme-color" content="#c1121f">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="التوقيع والختم">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<style>
+:root{--r1:#c1121f;--r2:#8f0c17;--rs:#fdecee;--bg:#f2f3f6;--card:#fff;--ink:#241518;--mut:#6c5a5d;--line:#ebdcde;--sh:rgba(110,10,20,.16);color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#150b0d;--card:#221416;--ink:#f6eaea;--mut:#c4a6aa;--line:#43292d;--rs:#3a1b20;--sh:rgba(0,0,0,.5);color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#150b0d;--card:#221416;--ink:#f6eaea;--mut:#c4a6aa;--line:#43292d;--rs:#3a1b20;--sh:rgba(0,0,0,.5);color-scheme:dark}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font:14px/1.5 "Segoe UI",Tahoma,Roboto,"Noto Naskh Arabic","Noto Sans Arabic",system-ui,sans-serif;padding-bottom:104px}
+button{font:inherit;color:var(--ink);cursor:pointer}
+button:focus-visible,input:focus-visible,summary:focus-visible,label:focus-within{outline:2px solid var(--r1);outline-offset:2px}
+.hd{position:relative;background:linear-gradient(135deg,#d3202f,#8f0c17);color:#fff;padding:14px 16px 32px;text-align:center;overflow:hidden}
+.hd h1{margin:0;font-size:21px;font-weight:800;text-shadow:0 2px 6px rgba(0,0,0,.25)}
+.hd .pen{position:absolute;left:10px;top:6px;width:36px;transform:rotate(8deg)}
+.hd .wave{position:absolute;bottom:-1px;left:0;width:100%;height:24px}
+#inst{position:absolute;right:10px;top:8px;z-index:2;border:1.5px solid #fff;background:rgba(255,255,255,.16);color:#fff;border-radius:99px;font-weight:700;font-size:12px;padding:3px 12px}
+main{max-width:560px;margin:0 auto;padding:0 12px}
+
+/* زر إضافة الملف: كبير وواضح */
+.addbig{display:flex;align-items:center;gap:16px;width:100%;min-height:112px;margin:0 0 12px;padding:14px 16px;border:2.5px dashed var(--r1);border-radius:20px;background:var(--rs);cursor:pointer;box-shadow:0 8px 20px -12px var(--sh);transition:transform .12s}
+.addbig:active{transform:scale(.98)}
+.addbig .ico{flex:none;width:76px;height:76px;border-radius:50%;background:linear-gradient(#d3202f,#a50f1b);box-shadow:0 4px 0 var(--r2);display:grid;place-items:center}
+.addbig .ico svg{width:44px;height:44px}
+.addbig .tx{min-width:0;display:flex;flex-direction:column;gap:2px}
+.addbig b{font-size:21px;font-weight:800;color:var(--r1);line-height:1.3}
+#fn{color:var(--mut);font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+.card{background:var(--card);border:1px solid var(--line);border-top:3px solid var(--r1);border-radius:16px;margin-bottom:10px;box-shadow:0 6px 18px -10px var(--sh);overflow:hidden}
+.ct{display:flex;align-items:center;gap:8px;font-weight:800;font-size:14px;color:var(--r1);margin:0 0 8px}
+.ct:before{content:"";width:5px;height:16px;border-radius:3px;background:var(--r1)}
+.cb{padding:10px 12px}
+.pvrow{display:flex;align-items:center;justify-content:center;gap:8px}
+.nav{flex:none;width:44px;height:84px;border:0;border-radius:14px;background:linear-gradient(#d3202f,#a50f1b);color:#fff;box-shadow:0 3px 0 var(--r2);display:grid;place-items:center}
+.nav svg{width:24px;height:24px}
+.nav:disabled{opacity:.3;box-shadow:none}
+#wrap{width:min(58vw,250px)}
+#stage{position:relative;direction:ltr;background:#fff;box-shadow:0 2px 12px var(--sh);outline:1px solid var(--line);touch-action:pan-y;min-height:120px}
+#stage canvas{display:block;width:100%}
+.it{position:absolute;touch-action:none;cursor:grab;user-select:none;-webkit-user-drag:none;outline:2px dashed transparent;outline-offset:1px}
+.it.sel{outline-color:var(--r1)}
+.pn{text-align:center;margin:8px 0 2px}
+.pn b{background:var(--rs);border:1px solid var(--line);border-radius:99px;padding:2px 16px;font-variant-numeric:tabular-nums}
+.hint{color:var(--mut);font-size:12px;text-align:center;margin:6px 0 0}
+.chk{display:flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:12px;padding:6px 10px;font-weight:600;font-size:12.5px;margin-top:6px;background:var(--card)}
+.chk input{accent-color:var(--r1);width:17px;height:17px;flex:none}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.drop{display:grid;place-items:center;position:relative;height:74px;border:1.5px dashed #d9b9bd;border-radius:12px;background:repeating-conic-gradient(var(--rs) 0 25%,transparent 0 50%) 0/12px 12px;cursor:pointer;margin-bottom:6px}
+.drop img{max-width:82%;max-height:62px;object-fit:contain}
+.drop u{position:absolute;bottom:3px;inset-inline-end:3px;width:20px;height:20px;border-radius:50%;background:var(--r1);color:#fff;text-decoration:none;display:grid;place-items:center;font-weight:700}
+.nm{font-weight:800;font-size:13px;margin-bottom:4px}
+.sl{font-weight:600;font-size:12.5px}
+.rg{display:flex;align-items:center;gap:6px;direction:ltr}
+.rg i{font-style:normal;font-size:11px;background:var(--rs);border:1px solid var(--line);border-radius:99px;padding:0 6px;min-width:38px;text-align:center}
+input[type=range]{width:100%;accent-color:var(--r1);margin:4px 0}
+.cnt{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.nums{display:flex;align-items:center;gap:8px;direction:ltr}
+.nums button{width:34px;height:34px;border-radius:50%;border:0;background:var(--r1);color:#fff;font-size:19px;font-weight:700}
+.nums div{background:var(--rs);border:1px solid var(--line);border-radius:99px;min-width:80px;text-align:center;padding:0 8px;line-height:1.2}
+.nums b{font-size:17px;display:block}.nums small{color:var(--mut);font-size:11px}
+.dis{opacity:.4;pointer-events:none}
+.seg{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0}
+.seg button{flex:1;min-height:34px;border:1.5px solid var(--r1);background:var(--card);border-radius:99px;font-weight:700;font-size:12.5px;padding:0 8px}
+.seg .on{background:linear-gradient(#d3202f,#a50f1b);color:#fff;border-color:var(--r2)}
+input[type=text]{font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:8px;width:100%;direction:ltr;margin-top:6px}
+.ghost{width:100%;justify-content:center;cursor:pointer;border:1px solid var(--line);background:var(--card);border-radius:12px;min-height:36px;margin-top:6px;font-weight:600;font-size:12.5px}
+.bar{position:fixed;inset:auto 0 0 0;background:var(--card);border-top:1px solid var(--line);padding:10px 14px calc(8px + env(safe-area-inset-bottom,0px));max-width:560px;margin:auto;box-shadow:0 -8px 22px -10px var(--sh);text-align:center;z-index:5}
+.bar button{width:100%;min-height:48px;border-radius:14px;font-weight:800;font-size:16px;border:0;background:linear-gradient(#d3202f,#a50f1b);color:#fff;box-shadow:0 3px 0 var(--r2)}
+.bar small{display:block;margin-top:6px;color:var(--mut);font-weight:700;font-size:11.5px}
+#msg{position:fixed;left:50%;bottom:104px;transform:translate(-50%,10px);background:#241518;color:#fff;padding:9px 16px;border-radius:99px;font-size:13px;opacity:0;pointer-events:none;transition:.25s;max-width:92vw;text-align:center;z-index:9}
+#msg.show{opacity:1;transform:translate(-50%,0)}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<header class="hd">
+  <button id="inst" hidden>تثبيت التطبيق</button>
+  <svg class="pen" viewBox="0 0 64 64"><path d="M50 4l10 10-14 24-14 8-6-6 8-14z" fill="#fff"/><path d="M30 40L10 60l26-10z" fill="#fff" opacity=".85"/><circle cx="24" cy="46" r="3" fill="#b3101e"/></svg>
+  <h1>التوقيع والختم الإلكتروني</h1>
+  <svg class="wave" viewBox="0 0 400 24" preserveAspectRatio="none"><path d="M0 13C70 28 130 0 210 11s140 14 190 0V24H0z" fill="var(--bg)"/></svg>
+</header>
+<main>
+  <label class="addbig" id="addbig">
+    <span class="ico"><svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round"><path d="M24 8v32M8 24h32"/></svg></span>
+    <span class="tx"><b id="addt">إضافة ملف PDF</b><span id="fn">اضغط هنا لاختيار الملف من جهازك</span></span>
+    <input type="file" id="fp" accept="application/pdf,.pdf" hidden>
+  </label>
+
+  <section class="card"><div class="cb">
+    <!-- التنقل: التالي يمين، السابق يسار -->
+    <div class="pvrow">
+      <button class="nav" id="pnx" aria-label="الصفحة التالية"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4l8 8-8 8"/></svg></button>
+      <div id="wrap"><div id="stage"></div></div>
+      <button class="nav" id="ppv" aria-label="الصفحة السابقة"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 4l-8 8 8 8"/></svg></button>
+    </div>
+    <div class="pn"><b id="pn">1 / 1</b></div>
+    <p class="hint" id="pnote">اسحب الختم أو التوقيع إلى مكانه في أي صفحة، وسينتقل لبقية الصفحات تلقائيًا</p>
+    <label class="chk"><input type="checkbox" id="only"> تعديل هذه الصفحة فقط (بدون نقله لبقية الصفحات)</label>
+  </div></section>
+
+  <section class="card"><div class="cb"><p class="ct">الختم والتوقيع</p><div class="two" id="tiles"></div></div></section>
+
+  <section class="card"><div class="cb"><p class="ct">الصفحات والتنويع</p>
+    <div class="cnt"><div class="nums" id="nums"><button id="pm" aria-label="زيادة">+</button><div><b id="cn">3</b><small>صفحات</small></div><button id="mn" aria-label="إنقاص">−</button></div>
+    <label class="chk" style="margin:0"><input type="checkbox" id="all" checked> كل الصفحات</label></div>
+    <div class="seg" id="md"><button data-v="start" class="on">من أول الملف</button><button data-v="end">من آخر الملف</button><button data-v="custom">صفحات محددة</button></div>
+    <input type="text" id="cu" placeholder="مثال: 1,3,5-7" hidden>
+    <div class="sl" style="margin-top:8px">التنويع الطبيعي بين الصفحات: <b id="vv">2</b></div>
+    <input type="range" id="vr" min="0" max="5" step="1" value="2">
+    <button id="dice" class="ghost">🎲 توزيع اختلافات جديدة</button>
+  </div></section>
+</main>
+<div class="bar"><button id="sv">تختيم وحفظ PDF</button><small>إعداد وتصميم : المهندس أنس عبد الواحد اليشيعي</small></div>
+<div id="msg" role="status"></div>
+
+<script>
+"use strict";
+const MM = 25.4 / 72, $ = id => document.getElementById(id), BASE = { st: 50, sg: 65 }, NM = { st: "الختم", sg: "التوقيع" }, KS = ["st", "sg"], DEF = { st: 8, sg: 6 };
+const S = { st: { pct: 70, use: true, auto: true, tol: 35 }, sg: { pct: 60, use: true, auto: true, tol: 35 } };
+const C = { custom: { st: null, sg: null }, sel: true, cnt: 3, mode: "start", only: false, v: 2, seed: 0 };
+let pdf = null, bytes = null, fname = "document", N = 3, cur = 1, selK = "st", tok = 0, ppm = 1, pages = {}, bseq = 0, pt = 0, pdfjsLib = null;
+const dims = {}, cache = new Map(), loaded = {}, LIB = "", PJ = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/", PL = "https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js";
+const abs = p => new URL(p, location.href).href;
+
+/* ---- أدوات ---- */
+/* كل المكتبات محلية (مجلد lib) ← يعمل بلا إنترنت */
+function lj(u) { return loaded[u] || (loaded[u] = new Promise((ok, no) => { const s = document.createElement("script"); s.src = u; s.async = true; s.onload = ok; s.onerror = () => { delete loaded[u]; no(new Error(u)); }; document.head.appendChild(s); })); }
+async function needPdfjs() {
+  if (pdfjsLib) return;
+  await lj(PJ + "pdf.min.js"); window.pdfjsLib.GlobalWorkerOptions.workerSrc = PJ + "pdf.worker.min.js"; pdfjsLib = window.pdfjsLib;
+}
+const idle = f => (window.requestIdleCallback ? requestIdleCallback(f, { timeout: 2000 }) : setTimeout(f, 600));
+idle(() => { needPdfjs().catch(() => {}); lj(PL).catch(() => {}); });
+function say(t) { const m = $("msg"); m.textContent = t; m.classList.add("show"); clearTimeout(say.t); say.t = setTimeout(() => m.classList.remove("show"), 3200); }
+const cvBlob = c => new Promise(ok => c.toBlob(ok, "image/png"));
+const b2d = b => new Promise(ok => { const r = new FileReader(); r.onload = () => ok(r.result); r.readAsDataURL(b); });
+function d2b(u) { const a = atob(u.split(",")[1]), n = new Uint8Array(a.length); for (let i = 0; i < a.length; i++) n[i] = a.charCodeAt(i); return new Blob([n], { type: "image/png" }); }
+const mkBlob = (w, h, fn) => { const c = document.createElement("canvas"); c.width = w; c.height = h; fn(c.getContext("2d")); return cvBlob(c); };
+const defBlob = k => k === "st" ? mkBlob(300, 300, g => { g.strokeStyle = g.fillStyle = "#b3261e"; g.lineWidth = 8; g.beginPath(); g.arc(150, 150, 135, 0, 7); g.stroke(); g.lineWidth = 3; g.beginPath(); g.arc(150, 150, 115, 0, 7); g.stroke(); g.textAlign = "center"; g.font = "bold 64px Tahoma,sans-serif"; g.fillText("ختم", 150, 140); g.font = "34px Tahoma,sans-serif"; g.fillText("معتمد", 150, 195); })
+  : mkBlob(400, 160, g => { g.strokeStyle = "#b3101e"; g.lineWidth = 6; g.lineCap = "round"; g.beginPath(); g.moveTo(20, 110); g.bezierCurveTo(60, 20, 90, 30, 100, 90); g.bezierCurveTo(110, 140, 140, 40, 180, 70); g.bezierCurveTo(210, 95, 230, 40, 260, 80); g.bezierCurveTo(290, 120, 320, 60, 380, 90); g.stroke(); });
+async function readImg(f) { try { const b = await createImageBitmap(f), s = Math.min(1, 500 / Math.max(b.width, b.height)), c = document.createElement("canvas"); c.width = Math.max(1, Math.round(b.width * s)); c.height = Math.max(1, Math.round(b.height * s)); c.getContext("2d").drawImage(b, 0, 0, c.width, c.height); return cvBlob(c); } catch (e) { return null; } }
+
+/* تفريغ الخلفية — بأسلوب C++: مصفوفات typed وجدول بحث (LUT) بدل sqrt لكل بكسل
+   المسافة² بين لونين ≤ 3×255² = 195075 ← جدول جاهز لقيمة الشفافية */
+const LUT = new Uint8Array(195076); let lutTol = -1;
+function mkLut(tol) {
+  if (lutTol === tol) return LUT; const T = tol * 2.4, Sf = 30 + tol;
+  for (let i = 0; i < 195076; i++) { const a = (Math.sqrt(i) - T) / Sf; LUT[i] = a <= 0 ? 0 : a >= 1 ? 255 : (a * 255 + .5) | 0; }
+  lutTol = tol; return LUT;
+}
+async function cutBlob(blob, tol) {
+  const bm = await createImageBitmap(blob), w = bm.width, h = bm.height, c = document.createElement("canvas"); c.width = w; c.height = h;
+  const g = c.getContext("2d", { willReadFrequently: true }); g.drawImage(bm, 0, 0); const im = g.getImageData(0, 0, w, h), p = im.data;
+  let r = 0, gr = 0, b = 0, n = 0, t = 0; const smp = (x, y) => { t++; const k = (y * w + x) * 4; if (p[k + 3] > 200) { r += p[k]; gr += p[k + 1]; b += p[k + 2]; n++; } };
+  for (let x = 0; x < w; x += 3) { smp(x, 0); smp(x, h - 1); } for (let y = 0; y < h; y += 3) { smp(0, y); smp(w - 1, y); }
+  if (n < t * .5) return null; const R = Math.round(r / n), G = Math.round(gr / n), B = Math.round(b / n), L = mkLut(tol);
+  let x0 = w, y0 = h, x1 = -1, y1 = -1;
+  for (let y = 0, k = 0; y < h; y++) for (let x = 0; x < w; x++, k += 4) {
+    const dr = p[k] - R, dg = p[k + 1] - G, db = p[k + 2] - B, a = p[k + 3] * L[dr * dr + dg * dg + db * db] / 255; p[k + 3] = a;
+    if (a > 20) { if (x < x0) x0 = x; if (x > x1) x1 = x; if (y < y0) y0 = y; y1 = y; }
+  }
+  if (x1 <= x0 || y1 <= y0) return null; g.putImageData(im, 0, 0);
+  const o = document.createElement("canvas"); o.width = x1 - x0 + 5; o.height = y1 - y0 + 5; o.getContext("2d").drawImage(c, x0 - 2, y0 - 2); return cvBlob(o);
+}
+
+/* ---- الصور (Blob + رابط مؤقت) ---- */
+function setImg(k, blob) {
+  return new Promise(ok => { const u = URL.createObjectURL(blob), i = new Image(); i.onload = () => { const s = S[k]; if (s.url) URL.revokeObjectURL(s.url); s.blob = blob; s.url = u; s.img = i; s.ratio = i.naturalHeight / i.naturalWidth; $("i-" + k).src = u; schedule(); ok(); }; i.src = u; });
+}
+async function applyImg(k) {
+  const s = S[k]; let b = s.orig; s.cut = false;
+  if (s.auto) { const r = await cutBlob(b, s.tol); if (r) { b = r; s.cut = true; } else say("لم أجد خلفية واضحة لتفريغها — استُخدمت الصورة كما هي"); }
+  $("tw-" + k).hidden = !s.cut; await setImg(k, b);
+}
+async function persist() {
+  try { const o = { cfg: { pct: { st: S.st.pct, sg: S.sg.pct }, use: { st: S.st.use, sg: S.sg.use }, auto: { st: S.st.auto, sg: S.sg.auto }, v: C.v } }; for (const k of KS) { const d = await b2d(S[k].blob); if (d.length < 700000) o[k] = d; } localStorage.setItem("tm5", JSON.stringify(o)); } catch (e) {}
+}
+["sg", "st"].forEach(k => {
+  const d = document.createElement("div"); d.id = "c-" + k;
+  d.innerHTML = '<div class="nm">' + NM[k] + '</div><label class="drop"><img id="i-' + k + '" alt=""><u>+</u><input type="file" id="f-' + k + '" accept="image/*" hidden></label><div class="sl">الحجم<div class="rg"><i id="pv-' + k + '"></i><input type="range" id="r-' + k + '" min="20" max="150"></div></div><label class="chk"><input type="checkbox" id="a-' + k + '" checked> تفريغ الخلفية تلقائيًا</label><div id="tw-' + k + '" class="sl" hidden>حساسية التفريغ<input type="range" id="t-' + k + '" min="5" max="90" value="35"></div><label class="chk"><input type="checkbox" id="u-' + k + '" checked> استخدام ' + NM[k] + '</label>';
+  $("tiles").appendChild(d);
+  $("f-" + k).onchange = async e => { const f = e.target.files[0]; if (!f) return; const b = await readImg(f); if (!b) return say("تعذر قراءة الصورة"); S[k].orig = b; await applyImg(k); say("تمت إضافة " + NM[k]); };
+  $("r-" + k).oninput = e => { S[k].pct = +e.target.value; $("pv-" + k).textContent = S[k].pct + "%"; schedule(); };
+  $("a-" + k).onchange = e => { S[k].auto = e.target.checked; applyImg(k); };
+  $("u-" + k).onchange = e => { S[k].use = e.target.checked; schedule(); };
+  let ct = 0; $("t-" + k).oninput = e => { S[k].tol = +e.target.value; clearTimeout(ct); ct = setTimeout(() => applyImg(k), 160); };
+});
+
+/* ---- التخطيط بالمليمتر + التنويع الطبيعي ---- */
+function lay(d) {
+  const o = {};
+  KS.forEach(k => { const s = S[k]; if (!s.img || !s.use) return; const w = Math.min(BASE[k] * s.pct / 100, d.W - 10), h = w * s.ratio, c = C.custom[k], m = 15; let x, y;
+    if (c) { x = c.fx * (d.W - w); y = c.fy * (d.H - h); } else { const q = DEF[k] % 3, r = (DEF[k] / 3) | 0; x = q === 0 ? m : q === 1 ? (d.W - w) / 2 : d.W - w - m; y = r === 0 ? m : r === 1 ? (d.H - h) / 2 : d.H - h - m; }
+    o[k] = { x, y, w, h }; });
+  return o;
+}
+function rnd(a) { a |= 0; a = a + 0x6D2B79F5 | 0; let t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }
+function jit(p, k) { const s = p * 977 + (k === "st" ? 31 : 57) + C.seed * 7919, r = i => rnd(s + i * 104729) * 2 - 1; return { dx: r(1), dy: r(2), s: r(3), r: r(4) }; }
+function parsePages(s) { const r = new Set(); s.split(/[,،\s]+/).forEach(t => { const m = t.match(/^(\d+)(?:-(\d+))?$/); if (!m) return; let a = +m[1], b = m[2] ? +m[2] : a; if (a > b) [a, b] = [b, a]; for (let i = Math.max(1, a); i <= Math.min(N, b); i++) r.add(i); }); return [...r].sort((a, b) => a - b); }
+function plist() { const R = (a, b) => Array.from({ length: b - a + 1 }, (_, i) => a + i); if (C.sel) return R(1, N); if (C.mode === "custom") return parsePages($("cu").value); const c = Math.min(C.cnt, N); return C.mode === "end" ? R(N - c + 1, N) : R(1, c); }
+async function pageSize(p) { if (dims[p]) return dims[p]; if (!pdf) return (dims[p] = { W: 210, H: 297 }); const v = (await pdf.getPage(p)).getViewport({ scale: 1 }); return (dims[p] = { W: v.width * MM, H: v.height * MM }); }
+function clamp(k, p) { const d = dims[p], it = pages[p][k], h = it.w * S[k].ratio; it.w = Math.max(5, Math.min(d.W, it.w)); it.x = Math.round(Math.max(0, Math.min(d.W - it.w, it.x)) * 100) / 100; it.y = Math.round(Math.max(0, Math.min(d.H - h, it.y)) * 100) / 100; }
+/* العناصر التي عدّلتها «لهذه الصفحة فقط» تبقى؛ الباقي يُعاد حسابه */
+async function rebuild(fk) {
+  fk = fk || []; const my = ++bseq, list = plist(), np = {};
+  for (const p of list) {
+    const d = await pageSize(p); if (my !== bseq) return; const L = lay(d), old = pages[p] || {}; np[p] = {};
+    KS.forEach(k => { const l = L[k]; if (!l) return; const o = old[k], j = jit(p, k), a = C.v, w = Math.min(l.w * (1 + j.s * a * .01), d.W);
+      if (o && o.m && !fk.includes(k)) { o.w = w; np[p][k] = o; }
+      else np[p][k] = { x: l.x + j.dx * a * 1.5, y: l.y + j.dy * a * 1.5, w, r: j.r * a * (k === "st" ? .8 : .6), on: o && !fk.includes(k) ? o.on : true, m: false }; });
+  }
+  if (my !== bseq) return; pages = np; for (const p in pages) for (const k in pages[p]) clamp(k, +p);
+}
+let st0 = 0; const pf = new Set();
+function schedule(force) { (force || []).forEach(k => pf.add(k)); clearTimeout(st0); st0 = setTimeout(async () => { const f = [...pf]; pf.clear(); await rebuild(f); counts(); render(); clearTimeout(pt); pt = setTimeout(persist, 900); }, 40); }
+/* نقل موضع الصفحة الحالية لكل الصفحات (مع اختلاف طفيف) */
+let tt = 0; const transferSoon = () => { clearTimeout(tt); tt = setTimeout(transfer, 200); };
+async function transfer() {
+  const P = pages[cur], d = dims[cur]; if (!P) return;
+  KS.forEach(k => { const it = P[k]; if (!it || !it.on) return; const mx = d.W - it.w, my = d.H - it.w * S[k].ratio; C.custom[k] = { fx: mx > 0 ? it.x / mx : 0, fy: my > 0 ? it.y / my : 0 }; });
+  await rebuild(KS); pages[cur] = P; KS.forEach(k => { if (P[k]) P[k].m = true; }); render(); say("انتقل لبقية الصفحات ✓");
+}
+
+/* ---- الإعدادات ---- */
+function counts() { $("cn").textContent = C.sel ? N : Math.min(C.cnt, N); $("nums").classList.toggle("dis", C.sel || C.mode === "custom"); $("cu").hidden = C.mode !== "custom"; document.querySelectorAll("#md button").forEach(b => b.classList.toggle("on", b.dataset.v === C.mode)); }
+$("all").onchange = e => { C.sel = e.target.checked; schedule(); };
+$("only").onchange = e => { C.only = e.target.checked; };
+$("pm").onclick = () => { C.cnt = Math.min(N, C.cnt + 1); schedule(); };
+$("mn").onclick = () => { C.cnt = Math.max(1, C.cnt - 1); schedule(); };
+$("cu").oninput = () => schedule();
+document.querySelectorAll("#md button").forEach(b => b.onclick = () => { C.mode = b.dataset.v; C.sel = false; $("all").checked = false; schedule(); });
+$("vr").oninput = e => { C.v = +e.target.value; $("vv").textContent = C.v; schedule(); };
+$("dice").onclick = () => { C.seed++; schedule(); say("تم توزيع اختلافات جديدة"); };
+
+/* ---- المعاينة (صغيرة وخفيفة) ---- */
+async function paint(p, cssW, dpr) { const d = await pageSize(p), pg = await pdf.getPage(p), vp = pg.getViewport({ scale: cssW / (d.W / MM) * dpr }); const cv = document.createElement("canvas"); cv.width = Math.ceil(vp.width); cv.height = Math.ceil(vp.height); cv.style.height = (d.H * cssW / d.W) + "px"; await pg.render({ canvasContext: cv.getContext("2d"), viewport: vp }).promise; return cv; }
+async function render() {
+  const my = ++tok, stage = $("stage"), d = await pageSize(cur); if (my !== tok) return;
+  const cssW = $("wrap").clientWidth || 220, dpr = Math.min(window.devicePixelRatio || 1, 2.5); ppm = cssW / d.W;
+  const key = cur + "@" + cssW + "@" + dpr; let cv = cache.get(key);
+  if (!cv) {
+    if (pdf) { cv = await paint(cur, cssW, dpr); if (my !== tok) return; }
+    else { cv = document.createElement("canvas"); cv.width = cssW * dpr; cv.height = d.H * ppm * dpr; cv.style.height = d.H * ppm + "px"; const g = cv.getContext("2d"); g.scale(dpr, dpr); g.fillStyle = "#fff"; g.fillRect(0, 0, cssW, d.H * ppm); g.fillStyle = "#c9ced5"; g.font = "bold 13px Tahoma,sans-serif"; g.textAlign = "center"; g.fillText("صفحة تجريبية " + cur, cssW / 2, 28); for (let i = 0; i < 14; i++) g.fillRect(16, 50 + i * 14, cssW - 32 - (i % 3) * 24, 4); }
+    cache.set(key, cv); if (cache.size > 8) cache.delete(cache.keys().next().value);
+  }
+  stage.style.width = cssW + "px"; stage.innerHTML = ""; stage.appendChild(cv);
+  const P = pages[cur]; $("pnote").textContent = P ? "اسحب الختم أو التوقيع إلى مكانه في أي صفحة، وسينتقل لبقية الصفحات تلقائيًا" : "هذه الصفحة غير مشمولة بالتختيم (من إعداد الصفحات).";
+  KS.forEach(k => { const it = P && P[k]; if (!it || !it.on || !S[k].url) return; const im = new Image(); im.src = S[k].url; im.draggable = false; im.className = "it" + (k === selK ? " sel" : ""); im.dataset.k = k; im.style.cssText = "width:" + it.w * ppm + "px;left:" + it.x * ppm + "px;top:" + it.y * ppm + "px;transform:rotate(" + (it.r || 0) + "deg)"; bindDrag(im, k); stage.appendChild(im); });
+  ui();
+  if (pdf && cur < N) setTimeout(async () => { const k2 = (cur + 1) + "@" + cssW + "@" + dpr; if (cache.has(k2) || my !== tok) return; try { const c = await paint(cur + 1, cssW, dpr); if (my === tok) { cache.set(k2, c); if (cache.size > 8) cache.delete(cache.keys().next().value); } } catch (e) {} }, 80);
+}
+function ui() {
+  $("pn").textContent = cur + " / " + N; $("ppv").disabled = cur <= 1; $("pnx").disabled = cur >= N;
+  document.querySelectorAll(".it").forEach(e => e.classList.toggle("sel", e.dataset.k === selK));
+}
+let raf = 0; const qui = () => raf || (raf = requestAnimationFrame(() => { raf = 0; ui(); }));
+const moved = () => { if (!C.only) transferSoon(); };
+function bindDrag(el, k) {
+  el.addEventListener("pointerdown", e => {
+    e.preventDefault(); selK = k; ui(); el.setPointerCapture(e.pointerId); const it = pages[cur][k], sx = e.clientX, sy = e.clientY, ox = it.x, oy = it.y, p = cur; let mvd = false;
+    const mv = ev => { mvd = true; it.x = ox + (ev.clientX - sx) / ppm; it.y = oy + (ev.clientY - sy) / ppm; clamp(k, p); it.m = true; el.style.left = it.x * ppm + "px"; el.style.top = it.y * ppm + "px"; qui(); };
+    const up = () => { el.removeEventListener("pointermove", mv); el.removeEventListener("pointerup", up); el.removeEventListener("pointercancel", up); if (mvd) moved(); };
+    el.addEventListener("pointermove", mv); el.addEventListener("pointerup", up); el.addEventListener("pointercancel", up);
+  });
+}
+const goNext = () => { if (cur < N) { cur++; render(); } }, goPrev = () => { if (cur > 1) { cur--; render(); } };
+$("pnx").onclick = goNext; $("ppv").onclick = goPrev;
+addEventListener("keydown", e => { if (/INPUT|TEXTAREA/.test((e.target.tagName || ""))) return; if (e.key === "ArrowRight") goNext(); else if (e.key === "ArrowLeft") goPrev(); });
+
+/* ---- فتح وحفظ ---- */
+$("fp").onchange = async e => {
+  const f = e.target.files[0]; if (!f) return;
+  try {
+    say("جارٍ فتح الملف..."); await needPdfjs(); bytes = new Uint8Array(await f.arrayBuffer());
+    pdf = await pdfjsLib.getDocument({ data: bytes.slice(0) }).promise;
+    N = pdf.numPages; cur = 1; C.cnt = N; C.sel = true; $("all").checked = true; C.custom = { st: null, sg: null }; fname = f.name.replace(/\.pdf$/i, ""); pages = {};
+    for (const k in dims) delete dims[k]; cache.clear(); $("fn").textContent = N + " صفحة · " + f.name; $("addt").textContent = "تغيير الملف";
+    await render(); say("تم فتح الملف"); await rebuild(); counts(); render();
+  } catch (err) { say("تعذر فتح الملف. تأكد أنه PDF سليم وغير محمي بكلمة مرور"); }
+  e.target.value = "";
+};
+/* حفظ الملف: تنزيل مباشر من المتصفح (يعمل بلا إنترنت) */
+function saveBlob(blob, name) {
+  const u = URL.createObjectURL(blob), a = document.createElement("a"); a.href = u; a.download = name; a.style.display = "none"; document.body.appendChild(a); a.click();
+  setTimeout(() => { a.remove(); URL.revokeObjectURL(u); }, 4000);
+}
+$("sv").onclick = async () => {
+  if (!bytes) return say("أضف ملف PDF أولًا");
+  try {
+    say("جارٍ تختيم الملف..."); await lj(PL);
+    const doc = await PDFLib.PDFDocument.load(bytes), emb = {};
+    for (const k of KS) emb[k] = await doc.embedPng(new Uint8Array(await S[k].blob.arrayBuffer()));
+    doc.getPages().forEach((pg, i) => {
+      const P = pages[i + 1]; if (!P) return; const H = pg.getSize().height;
+      KS.forEach(k => {
+        const it = P[k]; if (!it || !it.on) return; const w = it.w / MM, h = it.w * S[k].ratio / MM, th = -(it.r || 0), rad = th * Math.PI / 180, cx = (it.x + it.w / 2) / MM, cy = H - (it.y + it.w * S[k].ratio / 2) / MM;
+        pg.drawImage(emb[k], { x: cx - (w / 2 * Math.cos(rad) - h / 2 * Math.sin(rad)), y: cy - (w / 2 * Math.sin(rad) + h / 2 * Math.cos(rad)), width: w, height: h, rotate: PDFLib.degrees(th) });
+      });
+    });
+    saveBlob(new Blob([await doc.save()], { type: "application/pdf" }), fname + "-signed.pdf"); say("تم الحفظ ✓");
+  } catch (err) { say("تعذر حفظ الملف"); }
+};
+let rt = 0, lw = innerWidth; addEventListener("resize", () => { clearTimeout(rt); rt = setTimeout(() => { if (innerWidth !== lw) { lw = innerWidth; render(); } }, 150); });
+
+/* ---- التثبيت والعمل بلا نت ---- */
+let dip = null;
+addEventListener("beforeinstallprompt", e => { e.preventDefault(); dip = e; $("inst").hidden = false; });
+$("inst").onclick = async () => { if (!dip) return; dip.prompt(); try { await dip.userChoice; } catch (e) {} dip = null; $("inst").hidden = true; };
+addEventListener("appinstalled", () => { $("inst").hidden = true; });
+/* ---- تشغيل ---- */
+(async () => {
+  let o = null; try { o = JSON.parse(localStorage.getItem("tm5") || "null"); } catch (e) {}
+  if (o && o.cfg) { try { const c = o.cfg; KS.forEach(k => { S[k].pct = c.pct[k]; S[k].use = c.use[k]; S[k].auto = c.auto[k]; }); C.v = c.v; } catch (e) {} }
+  KS.forEach(k => { $("r-" + k).value = S[k].pct; $("pv-" + k).textContent = S[k].pct + "%"; $("a-" + k).checked = S[k].auto; $("u-" + k).checked = S[k].use; });
+  $("vr").value = C.v; $("vv").textContent = C.v;
+  for (const k of KS) { const b = o && o[k] ? d2b(o[k]) : await defBlob(k); S[k].orig = b; await setImg(k, b); }
+})();
+</script>
+</body>
+</html>
